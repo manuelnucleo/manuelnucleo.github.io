@@ -1,0 +1,59 @@
+{{!--  
+   if (crearLista) {
+        ul = document.createElement('ul')
+        ul.classList.add('demo-list-icon', 'mdl-list', 'w-100')
+        //console.log(ul)
+        
+    }
+
+  ul.innerHTML = ''
+    /* listaProductos.forEach((prod, index, array)=> {
+        console.log(prod)
+        console.log(index)
+        console.log(array)
+    }) */
+    listaProductos.forEach((prod, index) => {
+        ul.innerHTML += ` --}}
+
+<ul id="contenedor-lista" class="demo-list-icon mdl-list w-100">
+{{#listaProductos}} 
+        <li class="mdl-list__item">
+                            <!-- Icono del produto -->
+                            <span class="mdl-list__item-primary-content w-10">
+                                <i class="material-icons mdl-list__item-icon">shopping_cart</i>
+                            </span>
+
+                            <!-- Nombre del producto -->
+                            <span class="mdl-list__item-primary-content w-30">
+                                {{nombre}}
+                            </span>
+
+                            <!-- Entrada de cantidad -->
+                            <span class="mdl-list__item-primary-content w-20 ml-item">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield ">
+                                    <input onchange="cambiarCantidad({{id}},this)" class="mdl-textfield__input" type="text" id="cantidad-{{@index}}" value="{{cantidad}}">                                   
+                                    <label class="mdl-textfield__label" for="cantidad-{{@index}}">Cantidad</label>
+                                </div>
+                            </span>
+
+                            <!-- Entrada de precio -->
+                            <span class="mdl-list__item-primary-content w-20 ml-item">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield ">
+                                    <input onchange="cambiarPrecio({{id}},this)" class="mdl-textfield__input" type="text" id="precio-{{@index}}" value="{{precio}}">
+                                    <label class="mdl-textfield__label" for="precio-{{@index}}">Precio</label>
+                                </div>
+                            </span>
+
+                            <!-- Boton de borrar el producto -->
+                            <span class="mdl-list__item-primary-content w-20 ml-item">
+                                <button onclick="borrarProd({{id}})"
+                                    class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored ">
+                                    <i class="material-icons">remove_shopping_cart</i>
+                                </button>
+                            </span>
+
+                        </li>
+                        {{/listaProductos}} 
+        </ul>
+
+

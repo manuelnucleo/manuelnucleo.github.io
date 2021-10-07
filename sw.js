@@ -11,12 +11,24 @@ self.addEventListener("activate", (e) => {
 });
 
 self.addEventListener("fetch", (e) => {
-  console.log("sw fetch");
-  //console.log('fetch!', e.request.url)
+    console.log("sw fetch");
+    //console.log('fetch!', e.request.url)
 
-  let { url, method } = e.request;
-  console.log(method, url);
-  console.log("Es un css?", url.includes(".css") ? "Si" : "No");
+    let { url, method } = e.request;
+    console.log(method, url);
+    if (url.includes('jquery-3.6.0.min.js')) {
+        console.log("Se cargo JQuery");
+    }
+  
+});
+
+
+
+
+
+//man in the midle
+
+ /* console.log("Es un css?", url.includes(".css") ? "Si" : "No");
 
   if (url.includes("styles.css")) {
     console.log("styles.css / Esta en los fetch!");
@@ -52,7 +64,7 @@ self.addEventListener("fetch", (e) => {
 
             img {
                 width:100%;
-                /* border-radius: 20px; */
+                border-radius: 20px; 
                 margin-bottom: 20px;
             }
 
@@ -80,5 +92,4 @@ self.addEventListener("fetch", (e) => {
     // let respuesta = fetch(e.request)
     let resp = fetch(e.request.url);
     e.respondWith(resp);
-  }
-});
+  } */
