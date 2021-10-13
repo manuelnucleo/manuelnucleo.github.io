@@ -151,20 +151,36 @@ function configurarListeners() {
 }
 
 function registrarServiceWorker() {
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      this.navigator.serviceWorker
-        .register("./sw.js")
-        .then((reg) => {
-          console.log("El service Worker se registro correctamente", reg);
-        })
-        .catch((err) => {
-          console.warn("Error al registrar el service worker", err);
+
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+        this.navigator.serviceWorker.register("./sw.js")
+            .then((reg) => {
+                console.log("El service Worker se registro correctamente", reg)
+                //detecta cambios en el service worker
+                reg.onupdatefound = () => {
+
+                    const installingWorker = reg.installing
+                    installingWorker.onstatechange = () => {
+                        console.log('SW -----> ', installingWorker.state)
+                        if (installingWorker.state === 'activated' && this.navigator.serviceWorker.controller) {
+                            console.log('Reiniciando')
+
+                            setTimeout(()=> {
+                                console.log('ok')
+                                location.reload()
+                            },4000)
+                        }                        
+                    }
+                }
+            })
+            .catch((err) => {
+            console.warn("Error al registrar el service worker", err);
+            });
         });
-    });
-  } else {
-    console.error("ServiceWorker no esta disponible en navigator");
-  }
+    } else {
+        console.error("ServiceWorker no esta disponible en navigator");
+    }
 }
 
 function iniDialog() {
@@ -233,7 +249,7 @@ function pruebaCaches() {
                 cache.match('/css/styles.css').then(res => {
                     if (res) {
                         console.warn('recurso encontrado')
-                        res.text().then(console.log)
+                        //res.text().then(console.log)
                     } else {
                         console.warn('Recurso inexistente')
                     }
@@ -252,7 +268,7 @@ function pruebaCaches() {
                 })
 
                 /* listo todos los espacios de cache  */
-                cache.keys().then(nombre=> {
+                caches.keys().then(nombre=> {                    
                     console.log('nombres de caches: ', nombre)
                 })
 
@@ -270,7 +286,7 @@ function start() {
     configurarListeners()
     iniDialog()
     renderLista()
-    pruebaCaches()
+   // pruebaCaches()
 }
 
 start();
