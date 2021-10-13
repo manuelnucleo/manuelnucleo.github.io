@@ -12,6 +12,7 @@ self.addEventListener("install", (e) => {
     console.log("sw install!!!");
     //console.log("install", e);
 
+    
     self.skipWaiting()
     
     const cacheStatic = caches.open(CACHE_STATIC_NAME).then( cache => {
@@ -95,6 +96,6 @@ self.addEventListener("fetch", (e) => {
 });
 
 
-self.addEventListener('push', ()=> {
-    
+self.addEventListener('push', (e)=> {
+    console.log('push', e.data.text())
 })

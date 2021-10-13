@@ -154,9 +154,18 @@ function registrarServiceWorker() {
 
     if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
-        this.navigator.serviceWorker.register("./sw.js")
-            .then((reg) => {
-                console.log("El service Worker se registro correctamente", reg)
+        this.navigator.serviceWorker.register("./sw.js").then((reg) => {
+                //console.log("El service Worker se registro correctamente", reg)
+
+                // Habilitar el funcionamiento de las notificaciones
+                Notification.requestPermission(res => {
+                    if(res == 'granted') {
+                        navigator.serviceWorker.ready.then((reg) => {
+                            console.log(reg)
+                        })
+                    }
+                })
+
                 //detecta cambios en el service worker
                 reg.onupdatefound = () => {
 
@@ -169,7 +178,7 @@ function registrarServiceWorker() {
                             setTimeout(()=> {
                                 console.log('ok')
                                 location.reload()
-                            },4000)
+                            },1000)
                         }                        
                     }
                 }
